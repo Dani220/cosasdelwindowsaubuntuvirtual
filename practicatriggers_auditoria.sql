@@ -32,3 +32,10 @@ for each row
 insert into auditoria_clientes(id_cliente_nuevo, nombre_nuevo,
 seccion_nueva, usuario, modificado, proceso) values(NEW.id_cliente,
 NEW.nombre, NEW.seccion, USER(), NOW(), 'INSERT');
+
+drop trigger if exists auditoria_clientes_ad;
+create trigger auditoria_clientes_ad after delete on clientes
+for each row
+insert into auditoria_clientes(id_cliente_anterior, nombre_anterior,
+seccion_anterior, usuario, modificado, proceso) values(old.id_cliente,
+ old.nombre, old.seccion, user(), now(), 'DELETE');
