@@ -1,5 +1,5 @@
 CREATE DATABASE prueba;
-use prueba;
+USE prueba;
 CREATE TABLE clientes (
     id_cliente int not null auto_increment PRIMARY KEY,
     nombre varchar(100),
