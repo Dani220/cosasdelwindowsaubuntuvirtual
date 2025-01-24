@@ -25,3 +25,10 @@ CREATE user 'com2'@'%' identified by '321';
 GRANT SELECT, INSERT, UPDATE, DELETE on prueba.clientes to 'com1'@'%',
 'com2'@'%';
 FLUSH PRIVILEGES;
+
+drop trigger if exists auditoria_clientes_ai;
+create trigger auditoria_clientes_ai after insert on clientes
+for each row
+insert into auditoria_clientes(id_cliente_nuevo, nombre_nuevo,
+seccion_nueva, usuario, modificado, proceso) values(NEW.id_cliente,
+NEW.nombre, NEW.seccion, USER(), NOW(), 'INSERT');
